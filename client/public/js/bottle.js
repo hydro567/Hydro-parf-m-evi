@@ -8,7 +8,7 @@
   const F = window.FARO = window.FARO || {};
   const TAU = Math.PI * 2;
   const hydroLogoImage = new Image();
-  hydroLogoImage.src = '/hydro-trident.png';
+  hydroLogoImage.src = 'hydro-trident.png';
   F.hydroLogoImage = hydroLogoImage;
 
   /* Şişe ölçüleri (dünya birimi) */
