@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hydro — Niş Parfüm Evi</title>
+  <meta name="description" content="Hydro: suyun hafızasından ilham alan dört karakterli niş parfüm evi. Dört özel koku.">
+  <meta name="theme-color" content="#102a2c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071416'/%3E%3Cellipse cx='32' cy='33' rx='26' ry='8' transform='rotate(-16 32 33)' fill='none' stroke='%2368dbe0' stroke-width='2.4'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='36' fill='%23edf7f2'%3EH%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js" crossorigin>
+  <link rel="preload" as="script" href="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+<body class="is-loading">
+
+  <!-- Yükleme ekranı -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <img class="hydro-logo hydro-logo--loader" src="hydro-trident.png" alt="Hydro Poseidon logosu">
+      <div class="loader__word"><span>H</span><span>Y</span><span>D</span><span>R</span><span>O</span><i></i><span>P</span><span>A</span><span>R</span><span>F</span><span>Ü</span><span>M</span></div>
+      <div class="loader__bar"><span id="loaderBar"></span></div>
+      <div class="loader__pct"><span id="loaderPct">00</span></div>
+    </div>
+  </div>
+
+  <canvas class="gl" id="gl" aria-hidden="true"></canvas>
+  <canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+  <!-- Üst menü -->
+  <header class="hdr" id="hdr">
+    <a class="brand" href="#top" data-scroll aria-label="Hydro ana sayfa">
+      <img class="hydro-logo" src="hydro-trident.png" alt="Hydro Poseidon logosu">
+      <span class="brand__word">HYDRO<small>PARFÜM</small></span>
+    </a>
+
+
+    <nav class="nav" id="nav" aria-label="Ana menü">
+      <span class="nav__pill" id="navPill"></span>
+      <a href="#top" data-scroll data-section="top" class="is-active">Ana sayfa</a>
+      <a href="#notalar" data-scroll data-section="notalar">Notalar</a>
+      <a href="#koleksiyon" data-scroll data-section="koleksiyon">Koleksiyon</a>
+      <a href="#iletisim" data-scroll data-section="iletisim">İletişim</a>
+    </nav>
+
+    <div class="hdr__right">
+      <div class="skin" title="Parfümün tende geçirdiği süre">
+        <span class="skin__label">Tende</span>
+        <span class="skin__time" id="skinTime">00:00</span>
+        <svg class="skin__ring" viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="10" cy="10" r="7.5" class="skin__track" />
+          <circle cx="10" cy="10" r="7.5" class="skin__fill" id="skinRing" />
+        </svg>
+      </div>
+      <button class="cart-btn" id="cartBtn" aria-label="Sepet, 0 ürün">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 6.5h11l-.9 10.5H5.4z" /><path d="M7.5 6.5V5.4a2.5 2.5 0 0 1 5 0v1.1" /></svg>
+        <span class="cart-btn__count" id="cartCount">0</span>
+      </button>
+    </div>
+
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero__sticky">
+        <div class="hero__copy" id="heroCopy">
+          <p class="eyebrow"><span class="line"><span>Niş parfüm evi</span></span></p>
+          <h1 class="hero__title">
+            <span class="line"><span>Deniz suyunun</span></span>
+            <span class="line"><span>hafızasını taşıyoruz</span></span>
+            <span class="line"><span>kıyıdan tenine</span></span>
+          </h1>
+          <p class="hero__lead fade-up">Hydro, Poseidon’un dalgalarından ilham alan bir koku hikâyesi. Deniz suyunun tuzlu serinliğini, kıyıya vuran rüzgârı ve gün batımında ısınan taşları dört ayrı karaktere dönüştürüyoruz. Aşağı kaydırın; suyun hafızasından doğan notaları keşfedin.</p>
+          <a class="btn fade-up" href="#koleksiyon" data-scroll><span>Koleksiyonu gör</span><svg viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"/></svg></a>
+        </div>
+
+        <div class="hero__scroll fade-up" id="heroScroll"><span>Kaydırın</span><i></i></div>
+
+        <div class="hero__perfumes" id="heroPerfumes" aria-label="Parfüm seçimi">
+          <span class="hero__perfumes-label">Kokuyu seç</span>
+          <div class="hero__perfume-list">
+            <button class="hero__perfume is-active" type="button" data-perfume="0" aria-label="Aqua parfümünü göster"><i style="--swatch:#55d9e5"></i><span>Aqua</span></button>
+            <button class="hero__perfume" type="button" data-perfume="1" aria-label="Seyf parfümünü göster"><i style="--swatch:#ef9b5e"></i><span>Seyf</span></button>
+            <button class="hero__perfume" type="button" data-perfume="2" aria-label="Marjinal parfümünü göster"><i style="--swatch:#ee6f8c"></i><span>Marjinal</span></button>
+            <button class="hero__perfume" type="button" data-perfume="3" aria-label="Vento parfümünü göster"><i style="--swatch:#a7da8b"></i><span>Vento</span></button>
+          </div>
+        </div>
+
+        <div class="hero__dim" id="heroDim"></div>
+
+        <div class="hero__spray" id="heroSpray">
+          <span class="hero__spray-time">00:00</span>
+          <p class="hero__spray-text">Parfümü sıktığınız an</p>
+        </div>
+
+        <div class="hero__veil" id="heroVeil"></div>
+      </div>
+    </section>
+
+    <!-- NOTALAR -->
+    <section class="notes" id="notalar">
+      <div class="notes__sticky" id="notesSticky">
+        <div class="notes__photo" aria-hidden="true"></div><div class="notes__photo" aria-hidden="true"></div><div class="notes__photo" aria-hidden="true"></div>
+        <canvas class="notes__bg" id="notesBg" aria-hidden="true"></canvas>
+        <a class="notes__credit" id="notesCredit" target="_blank" rel="noopener noreferrer"></a>
+
+        <div class="notes__copy">
+          <article class="note is-active" data-note="0">
+            <p class="eyebrow">İlk 15 dakika</p>
+            <h2>Üst nota</h2>
+            <p class="note__text">Şişeden çıkan ilk nefes. Parlak, canlı ve kısa ömürlü; yeşil elma, bergamot ve narenciye ilk on beş dakikada sahneyi kalbe bırakır.</p>
+            <div class="chips"><span>Yeşil elma</span><span>Bergamot</span><span>Narenciye</span></div>
+          </article>
+          <article class="note" data-note="1">
+            <p class="eyebrow">15. dakikadan 4. saate</p>
+            <h2>Orta nota</h2>
+            <p class="note__text">Parfümün asıl karakteri şimdi ortaya çıkıyor. Gün boyu yanınızdakilerin duyduğu katman bu: deniz tuzu, lotus ve meyvemsi notalar.</p>
+            <div class="chips"><span>Deniz tuzu</span><span>Lotus</span><span>Meyvemsi</span></div>
+          </article>
+          <article class="note" data-note="2">
+            <p class="eyebrow">4. saatten 8. saate</p>
+            <h2>Dip nota</h2>
+            <p class="note__text">Günün sonunda tende kalan iz. Beyaz misk ve sedir yavaşça açılır; ertesi sabah ceketinizde hâlâ onları bulursunuz.</p>
+            <div class="chips"><span>Beyaz misk</span><span>Sedir</span><span>Temiz ten</span></div>
+          </article>
+        </div>
+
+        <div class="notes__art" id="notesArt">
+          <div class="arch"><canvas id="archCanvas" aria-hidden="true"></canvas></div>
+        </div>
+
+        <div class="notes__timer" id="notesTimer" aria-hidden="true">00:15</div>
+
+        <div class="notes__steps" aria-hidden="true">
+          <span class="is-active">Üst</span><span>Orta</span><span>Dip</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- KOLEKSİYON -->
+    <section class="collection" id="koleksiyon">
+      <div class="collection__sticky">
+        <div class="collection__panel" id="collPanel">
+          <div class="collection__head">
+            <span class="eyebrow">Koleksiyon</span>
+            <span class="collection__count"><b id="collIndex">01</b> / 04</span>
+          </div>
+          <h2 class="collection__name swap" id="collName">Kuru Gül</h2>
+          <p class="collection__desc swap" id="collDesc"></p>
+          <dl class="rows swap" id="collRows">
+            <div class="row"><dt>Üst</dt><dd id="collTop"></dd></div>
+            <div class="row"><dt>Orta</dt><dd id="collHeart"></dd></div>
+            <div class="row"><dt>Dip</dt><dd id="collBase"></dd></div>
+          </dl>
+          <div class="last">
+            <span class="eyebrow">Tende kalıcılık</span>
+            <div class="last__bar"><i id="collBar"></i></div>
+            <strong id="collHours">6 saat</strong>
+          </div>
+          <button class="coll-buy" id="collBuy">
+            <span class="coll-buy__label">Sepete ekle</span>
+            <span class="coll-buy__price" id="collPrice">4.800 TL</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v12M2 8h12" /></svg>
+          </button>
+          <div class="ctrl">
+            <button class="ctrl__arrow" id="collPrev" aria-label="Önceki koku"><svg viewBox="0 0 16 10"><path d="M16 5H2M6 1L2 5l4 4"/></svg></button>
+            <div class="dots" id="collDots"></div>
+            <button class="ctrl__arrow" id="collNext" aria-label="Sonraki koku"><svg viewBox="0 0 16 10"><path d="M0 5h14M10 1l4 4-4 4"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- İLETİŞİM -->
+    <section class="contact" id="iletisim">
+      <div class="contact__grid">
+        <div>
+          <p class="eyebrow eyebrow--accent" data-reveal>İletişim</p>
+          <h2 class="contact__title" data-reveal>Denizden gelen bir hikâyeye kulak verin.</h2>
+          <p class="contact__lead" data-reveal>Hydro’nun kıyı atölyesinde deniz tuzu, rüzgâr, baharat ve tatlı ışık aynı hikâyede buluşur. Sorularınız ve iş birlikleriniz için bize yazın.</p>
+        </div>
+        <div class="contact__list">
+          <a class="crow" href="mailto:merhaba@hydroparfum.com" data-reveal><span>E-posta</span><b>merhaba@hydroparfum.com</b><i>→</i></a>
+          <a class="crow" href="https://instagram.com/hydroparfum" target="_blank" rel="noopener" data-reveal><span>Instagram</span><b>@hydroparfum</b><i>→</i></a>
+          <div class="crow" data-reveal><span>Atölye</span><b>İstanbul, Türkiye</b><i></i></div>
+          <div class="crow" data-reveal><span>Saatler</span><b>Salı – Cumartesi · 11:00 – 19:00</b><i></i></div>
+
+          <form class="news" id="news" data-reveal novalidate>
+            <label for="newsEmail">Hydro’nun yeni hikâyelerinden haberdar olun.</label>
+            <div class="news__row">
+              <input id="newsEmail" type="email" placeholder="E-posta adresiniz" autocomplete="email" required>
+              <button type="submit">Haber ver</button>
+            </div>
+            <p class="news__msg" id="newsMsg" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="foot__word" aria-hidden="true"><span>HYDRO</span><span>PARFÜM</span></div>
+      <div class="foot__row">
+        <span>© 2026 Hydro Parfüm</span>
+        <span>Bu sayfadaki şişelerin hiçbiri fotoğraf değil — hepsi kodla çizildi.</span>
+        <a href="#top" data-scroll>Başa dön ↑</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Sipariş çekmecesi -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__scrim" data-close></div>
+    <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawerName" data-lenis-prevent>
+      <button class="drawer__close" data-close aria-label="Kapat">
+        <svg viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13"/></svg>
+      </button>
+      <div class="drawer__media" id="drawerMedia"><img id="drawerImg" alt=""></div>
+      <p class="eyebrow" id="drawerFam"></p>
+      <h3 class="drawer__name" id="drawerName"></h3>
+      <p class="drawer__meta" id="drawerMeta"></p>
+      <div class="drawer__line">
+        <span class="eyebrow">Adet</span>
+        <div class="qty"><button data-q="-1" aria-label="Azalt">−</button><span id="drawerQty">1</span><button data-q="1" aria-label="Arttır">+</button></div>
+      </div>
+      <div class="drawer__line">
+        <span class="eyebrow">Toplam</span>
+        <strong id="drawerTotal"></strong>
+      </div>
+      <button class="btn btn--solid drawer__cta" id="drawerAdd"><span>Sepete ekle</span><svg viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"/></svg></button>
+      <p class="drawer__note">Denizden ilham alan kokunuz, özenli paketleme ile adresinize gönderilir.</p>
+    </aside>
+  </div>
+
+  <!-- Sepet çekmecesi -->
+  <div class="drawer cart" id="cart" aria-hidden="true">
+    <div class="drawer__scrim" data-close></div>
+    <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle" data-lenis-prevent>
+      <div class="cart__head">
+        <h3 class="cart__title" id="cartTitle">Sepet <sup id="cartHeadCount">0</sup></h3>
+        <button class="drawer__close" data-close aria-label="Sepeti kapat">
+          <svg viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13"/></svg>
+        </button>
+      </div>
+      <ul class="cart__list" id="cartList"></ul>
+      <div class="cart__empty" id="cartEmpty">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M9 13h22l-1.8 21H10.8z" /><path d="M15 13v-2.2a5 5 0 0 1 10 0V13" /></svg>
+        <p>Sepetiniz şimdilik boş.</p>
+        <a class="btn" href="#koleksiyon" data-scroll><span>Kokulara göz at</span><svg viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"/></svg></a>
+      </div>
+      <div class="cart__foot" id="cartFoot">
+        <div class="drawer__line"><span class="eyebrow">Ara toplam</span><strong id="cartSubtotal">0 TL</strong></div>
+        <div class="drawer__line"><span class="eyebrow">Kargo</span><span class="cart__ship">Ücretsiz</span></div>
+        <a class="btn btn--solid drawer__cta" id="cartCheckout" href="#"><span>Siparişi tamamla</span><svg viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"/></svg></a>
+        <p class="drawer__note">Sipariş e-posta ile alınır; ödeme bilgisi istenmez. Siparişler iki iş günü içinde kargoya verilir.</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Bildirim -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast__dot" id="toastDot"></span>
+    <span class="toast__text" id="toastText"></span>
+    <button class="toast__btn" id="toastView">Sepeti gör</button>
+  </div>
+
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/data.js?v=8"></script>
+  <script src="js/art.js?v=10"></script>
+  <script src="js/scenes2d.js?v=7"></script>
+  <script src="js/note-photos.js?v=1"></script>
+  <script src="js/bottle-forms.js?v=17"></script>
+  <script src="js/bottle.js?v=11"></script>
+  <script src="js/main.js?v=10"></script>
+</body>
+</html>
